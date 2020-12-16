@@ -5,14 +5,36 @@ const Timer = require('./timer');
 const hostname = '127.0.0.1';
 const port = 3000;
 
+const timer = new Timer();
+// Seriously need to figure out how to duplicate this code
 const server = http.createServer((req, res) =>{
-    const timer = new Timer();
-    timer.start();
+    const url = req.url;
+    if (url == '/start'){
+        timer.start();
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.end("Timer started");
+    }else if(url == '/stop'){
+        timer.stop();
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.end("Timer stopped");
+    }else if( url == '/time'){
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.write("Current elapsed time is: ");
+        res.write(String(timer.getCurrentTimeElapsed()));
+        res.end();
+    }else{
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.write(String(timer.getCurrentTimeElapsed()));
-    res.end(x.test('Another test'));
+    res.end();
+    //res.end(x.test('Another test'));
+    }
 });
 
 const server2 = http.createServer((req, res) =>{

@@ -1,13 +1,17 @@
 module.exports = class Timer {
     currentTimeElapsed;
     startTime;
+    stopped;
     
     start(){
+        this.stopped = false;
         this.startTime = Date.now();
     }
 
     stop(){
-        if (!this.startTime) return 0;
+        if (this.stopped) return;
+        this.stopped = true;
+        if (!this.startTime) return;
         if (this.currentTimeElapsed)
             this.currentTimeElapsed = this.currentTimeElapsed + (Date.now() - this.startTime);
         else
@@ -17,8 +21,12 @@ module.exports = class Timer {
     getCurrentTimeElapsed(){
         if (!this.startTime) return 0;
         if (this.currentTimeElapsed)
-            return this.currentTimeElapsed + (Date.now() - this.startTime);
+            if (this.stopped)
+                return this.currentTimeElapsed;
+            else
+                return this.currentTimeElapsed + (Date.now() - this.startTime);
         else 
+            if (this.stopped) return 0;
             return Date.now() - this.startTime;
     }
 };
