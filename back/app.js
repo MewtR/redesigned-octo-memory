@@ -7,15 +7,15 @@ const port = 3000;
 const server = http.createServer((req, res) =>{
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World');
-    x.test('Another test');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.end(x.test('Another test'));
 });
 
 const server2 = http.createServer((req, res) =>{
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('A second server');
-    x.test('This is a test');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.end(x.test('This is a test'));
 });
 
 server.listen(port, hostname, () =>{
