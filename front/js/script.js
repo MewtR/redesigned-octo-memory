@@ -1,14 +1,50 @@
 $(document).ready(function(){
-let node1Url = "http://localhost:3000"
+
+let pendulums = "";
+
+    //Generate pendulum canvases
+    for (let i = 1; i < 3; i ++){
+        pendulums += "<div class='d-flex flex-column'>";
+        pendulums += "<canvas id='pendulum"+i+"' class='mt-3 border-top border-dark'></canvas>";
+        pendulums += "<div class='d-flex flex-column'>";
+        pendulums += "<button id='node"+i+"'>Main</button>";
+        pendulums += "<button id='start"+i+"'>Start</button>";
+        pendulums += "<button id='stop"+i+"'>Stop</button>";
+        pendulums += "<button id='time"+i+"'>Time</button>";
+        pendulums += "</div>";
+        pendulums += "</div>";
+    }
+
+$( "#pendulums" ).html(pendulums);
+
+    //Event listeners
+    for (let i = 1; i < 3; i ++){
+        let nodeUrl = "http://localhost:300"+i;
+        $( "#node"+i ).click(() => {
+            $.get(nodeUrl, (data) => {
+                console.log("Here is my data: "+data);
+            })
+        });
+        $( "#start"+i ).click(() => {
+            $.get(nodeUrl+'/start', (data) => {
+                console.log("Response: "+data);
+            })
+        });
+        $( "#stop"+i ).click(() => {
+            $.get(nodeUrl+'/stop', (data) => {
+                console.log("Response: "+data);
+            })
+        });
+        $( "#time"+i ).click(() => {
+            $.get(node1Url+'/time', (data) => {
+                console.log("Response: "+data);
+            })
+        });
+    }
+let node1Url = "http://localhost:3001"
 let d = new Date();
 $( "h2" ).text("Today's date is "+d);
 
-
-$( "#node1" ).click(() => {
-    $.get(node1Url, (data) => {
-        console.log("Here is my data: "+data);
-    })
-});
 
 const canvas = $("#pendulum1");
 const ctx = canvas[0].getContext('2d');
@@ -28,23 +64,5 @@ ctx2.rotate(2*Math.PI*(3/4));
 ctx2.arc(0, 0, 10, 0 ,2*Math.PI);
 ctx2.lineTo(150,0);
 ctx2.stroke();
-
-$( "#start1" ).click(() => {
-    $.get(node1Url+'/start', (data) => {
-        console.log("Response: "+data);
-    })
-});
-
-$( "#stop1" ).click(() => {
-    $.get(node1Url+'/stop', (data) => {
-        console.log("Response: "+data);
-    })
-});
-
-$( "#time1" ).click(() => {
-    $.get(node1Url+'/time', (data) => {
-        console.log("Response: "+data);
-    })
-});
 
 })

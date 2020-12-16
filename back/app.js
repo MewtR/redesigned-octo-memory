@@ -3,7 +3,7 @@ var x = require('./pendulum');
 const Timer = require('./timer');
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 3001;
 
 const timer = new Timer();
 // Seriously need to figure out how to duplicate this code
@@ -45,10 +45,10 @@ const server2 = http.createServer((req, res) =>{
 });
 
 server.listen(port, hostname, () =>{
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Pendulum running at http://${hostname}:${port}/`);
 });
 
 server2.listen(port+1, hostname, () =>{
-    console.log(`Server2 running at http://${hostname}:${port+1}/`);
+    console.log(`Pendulum running at http://${hostname}:${port+1}/`);
 });
 
