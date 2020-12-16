@@ -14,7 +14,10 @@ const canvas = $("#pendulum1");
 console.log("Canvas is: ", canvas);
 const ctx = canvas[0].getContext('2d');
 ctx.beginPath();
-ctx.arc(150, 75, 10, -0.5*Math.PI ,2*Math.PI*(3/4));
+//coordinate system at the center of the circle
+ctx.translate(150,75);
+ctx.rotate(2*Math.PI*(3/4));
+ctx.arc(0, 0, 10, 0 ,2*Math.PI);
 ctx.lineTo(150,0);
 ctx.stroke();
 })
