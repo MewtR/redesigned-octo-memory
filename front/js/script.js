@@ -9,4 +9,12 @@ $( "#node1" ).click(() => {
         console.log("Here is my data: "+data);
     })
 });
+
+const canvas = $("#pendulum1");
+console.log("Canvas is: ", canvas);
+const ctx = canvas[0].getContext('2d');
+ctx.beginPath();
+ctx.arc(150, 75, 10, -0.5*Math.PI ,2*Math.PI*(3/4));
+ctx.lineTo(150,0);
+ctx.stroke();
 })
