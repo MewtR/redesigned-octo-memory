@@ -36,12 +36,12 @@ $( "#pendulums" ).html(pendulums);
             })
         });
         $( "#time"+i ).click(() => {
-            $.get(node1Url+'/time', (data) => {
+            $.get(nodeUrl+'/time', (data) => {
                 console.log("Response: "+data);
             })
         });
     }
-let node1Url = "http://localhost:3001"
+
 let d = new Date();
 $( "h2" ).text("Today's date is "+d);
 
