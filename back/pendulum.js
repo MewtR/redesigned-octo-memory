@@ -16,7 +16,7 @@ module.exports = {
             return this.timer.getCurrentTimeElapsed();
         },
         getCurrentAngle(){
-            return helpers.angularDisplacement(this.initialAngle, this.length, this.timer.getCurrentTimeElapsed);
+            return helpers.angularDisplacement(this.initialAngle, this.length, this.timer.getCurrentTimeElapsed());
         },
         getCoordinates(){
             return helpers.coordinates(this.getCurrentAngle(), this.length);

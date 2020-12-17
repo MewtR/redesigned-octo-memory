@@ -11,6 +11,8 @@ let pendulums = "";
         pendulums += "<button id='start"+i+"'>Start</button>";
         pendulums += "<button id='stop"+i+"'>Stop</button>";
         pendulums += "<button id='time"+i+"'>Time</button>";
+        pendulums += "<button id='angle"+i+"'>Angle</button>";
+        pendulums += "<button id='coordinates"+i+"'>Coordinates</button>";
         pendulums += "</div>";
         pendulums += "</div>";
     }
@@ -40,12 +42,25 @@ $( "#pendulums" ).html(pendulums);
                 console.log("Response: "+data);
             })
         });
+        $( "#angle"+i ).click(() => {
+            $.get(nodeUrl+'/angle', (data) => {
+                console.log("Response: "+data);
+            })
+        });
+        $( "#coordinates"+i ).click(() => {
+            $.get(nodeUrl+'/coordinates', (data) => {
+                console.log("Response is: ",data);
+                console.log("x is: ",data.x);
+                console.log("y is: ",data.y);
+            })
+        });
     }
 
 let d = new Date();
 $( "h2" ).text("Today's date is "+d);
 
 
+//Put this in a separate file at some point
 const canvas = $("#pendulum1");
 const ctx = canvas[0].getContext('2d');
 ctx.beginPath();

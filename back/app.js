@@ -25,6 +25,10 @@ const requestListener = function(req, res, pendulum){
         sendResponse(res, 200, 'text/plain', 'Timer stopped');
     }else if( url == '/time'){
         sendResponse(res, 200, 'text/plain', 'Current time elapsed is '+String(pendulum.getCurrentTimeElapsed()));
+    }else if( url == '/angle'){
+        sendResponse(res, 200, 'application/json',String(pendulum.getCurrentAngle()));
+    }else if( url == '/coordinates'){
+        sendResponse(res, 200, 'application/json',JSON.stringify(pendulum.getCoordinates()));
     }else{
         sendResponse(res, 200, 'text/plain', '');
     }
