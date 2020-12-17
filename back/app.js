@@ -1,38 +1,33 @@
 const http = require('http');
-var x = require('./pendulum');
 const Timer = require('./timer');
+const Pendulum = require('./pendulum');
+
 
 const hostname = '127.0.0.1';
 const port = 3001;
 
-const timer1 = new Timer();
-const timer2 = new Timer();
+const timer1 = Timer.createTimer();
+const timer2 = Timer.createTimer();
+//const pendulum1 = new Pendulum(5, 0.03, timer1);
 
-const requestListener = function(req, res, timer){
+const sendResponse = function(res, statusCode, contentType, data){
+    res.statusCode = statusCode;
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.end(data);
+}
+const requestListener = function(req, res, pendulum){
     const url = req.url;
     if (url == '/start'){
-        timer.start();
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.end("Timer started");
+        pendulum.start();
+        sendResponse(res, 200, 'text/plain', 'Timer started');
     }else if(url == '/stop'){
-        timer.stop();
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.end("Timer stopped");
+        pendulum.stop();
+        sendResponse(res, 200, 'text/plain', 'Timer stopped');
     }else if( url == '/time'){
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.write("Current elapsed time is: ");
-        res.write(String(timer.getCurrentTimeElapsed()));
-        res.end();
+        sendResponse(res, 200, 'text/plain', 'Current time elapsed is '+String(pendulum.getCurrentTimeElapsed()));
     }else{
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.end();
+        sendResponse(res, 200, 'text/plain', '');
     }
 }
 
