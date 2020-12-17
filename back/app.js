@@ -6,9 +6,8 @@ const Pendulum = require('./pendulum');
 const hostname = '127.0.0.1';
 const port = 3001;
 
-const timer1 = Timer.createTimer();
-const timer2 = Timer.createTimer();
-//const pendulum1 = new Pendulum(5, 0.03, timer1);
+const pendulum1 = Pendulum.createPendulum();
+const pendulum2 = Pendulum.createPendulum();
 
 const sendResponse = function(res, statusCode, contentType, data){
     res.statusCode = statusCode;
@@ -32,13 +31,13 @@ const requestListener = function(req, res, pendulum){
 }
 
 const server = http.createServer((req,res) =>{
-    requestListener(req,res,timer1);
+    requestListener(req,res,pendulum1);
 }).listen(port, hostname, () =>{
     console.log(`Pendulum running at http://${hostname}:${port}/`);
 });
 
 const server2 = http.createServer((req, res) =>{
-    requestListener(req,res,timer2);
+    requestListener(req,res,pendulum2);
 }).listen(port+1, hostname, () =>{
     console.log(`Pendulum running at http://${hostname}:${port+1}/`);
 });
