@@ -28,7 +28,7 @@ ctx2.stroke();
 })
 
 // functions defined here can be called from other script
-function draw(pendulumNumber, length, x, y){
+function draw(pendulumNumber, length, x, y, time = 0, angle = 0){
     const radius = 10;
     const canvas = $("#pendulum"+pendulumNumber);
     const ctx = canvas[0].getContext('2d');
@@ -43,6 +43,7 @@ function draw(pendulumNumber, length, x, y){
     const lengthInPixels = convertMetersToPixels(length);
     const xInPixels = convertMetersToPixels(x);
     const yInPixels = convertMetersToPixels(y);
+    console.log("x,y in pixels: "+x+","+y+" "+xInPixels+","+yInPixels+ " time: "+time+" angle: "+angle);
     ctx.beginPath();
     // Set origin to middle of the pendulum at rest
     ctx.translate(canvasXMidpoint, lengthInPixels);
@@ -57,14 +58,14 @@ function draw(pendulumNumber, length, x, y){
 
 }
 function simulate(pendulumNumber){
-  setInterval(() =>{
+  const intervalID = setInterval(() =>{
             let nodeUrl = "http://localhost:300"+pendulumNumber; 
             $.get(nodeUrl+'/drawinfo', (data) => {
-                console.log("Response is: ",data);
-                console.log("x is: ",data.x);
-                console.log("y is: ",data.y);
-                draw(pendulumNumber, data.length, data.x, data.y);
-            })
+                draw(pendulumNumber, data.length, data.x, data.y,data.time, data.angle);
+                if(data.stopped) clearInterval(intervalID);
+            }).fail(() =>{
+                clearInterval(intervalID);
+            });
   }, 100, pendulumNumber, length,)  
 }
 function convertMetersToPixels(length){

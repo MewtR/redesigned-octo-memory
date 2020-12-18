@@ -6,7 +6,6 @@ let pendulums = "";
         pendulums += "<div class='d-flex flex-column'>";
         pendulums += "<canvas id='pendulum"+i+"' class='mt-3 border-top border-dark'></canvas>";
         pendulums += "<div class='d-flex flex-column'>";
-        pendulums += "<button id='node"+i+"'>Main</button>";
         pendulums += "<button id='start"+i+"'>Start</button>";
         pendulums += "<button id='stop"+i+"'>Stop</button>";
         pendulums += "<button id='time"+i+"'>Time</button>";

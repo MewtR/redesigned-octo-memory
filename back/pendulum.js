@@ -1,7 +1,7 @@
 const Timer = require('./timer');
 const helpers = require('./helpers');
 module.exports = {
-    createPendulum: (initialAngle = 5, length = 0.03, timer = Timer.createTimer()) => ({
+    createPendulum: (initialAngle = 20, length = 0.03, timer = Timer.createTimer()) => ({
 
         initialAngle,
         length,
@@ -21,12 +21,18 @@ module.exports = {
         getCoordinates(){
             return helpers.coordinates(this.getCurrentAngle(), this.length);
         },
+        isStopped(){
+            return this.timer.isStopped();
+        },
         getDrawInfo(){ // returns info needed to draw
             const coordinates = this.getCoordinates();
             return {
                 length: this.length,
                 x: coordinates.x,
-                y: coordinates.y
+                y: coordinates.y,
+                time: this.getCurrentTimeElapsed(),
+                angle: this.getCurrentAngle(),
+                stopped: this.isStopped()
             };
         }
     })

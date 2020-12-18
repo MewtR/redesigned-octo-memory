@@ -2,7 +2,7 @@ module.exports = {
     angularDisplacement: function(initialAngle, length, time){
         const gravitationalAcceleration = 9.8;
         const initialAngleInRads = toRadians(initialAngle);
-        const angle = toDegrees( initialAngleInRads * Math.sin( (Math.sqrt( gravitationalAcceleration/length ))*( time/1000 ) ));
+        const angle = toDegrees( initialAngleInRads * Math.cos( (Math.sqrt( gravitationalAcceleration/length ))*( time/1000 ) ));
         return angle;
     },
     coordinates: function(angle, length){
