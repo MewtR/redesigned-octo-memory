@@ -59,6 +59,7 @@ $( "#pendulums" ).html(pendulums);
                 console.log("Response is: ",data);
                 console.log("x is: ",data.x);
                 console.log("y is: ",data.y);
+                draw(i, data.length, data.x, data.y);
             })
         });
     }
