@@ -29,6 +29,7 @@ ctx2.stroke();
 
 // functions defined here can be called from other script
 function draw(pendulumNumber, length, x, y){
+    const radius = 10;
     const canvas = $("#pendulum"+pendulumNumber);
     const ctx = canvas[0].getContext('2d');
     ctx.clearRect(0,0, canvas[0].width, canvas[0].height);
@@ -65,8 +66,11 @@ function draw(pendulumNumber, length, x, y){
     ctx.lineTo(50, 0);
     */
     
+    
+    
     //Draws an arc which is centered at xInPixels,yInPixels
-    ctx.arc(xInPixels, yInPixels, 10, 0 ,2*Math.PI);
+    ctx.arc(xInPixels, yInPixels, radius, 0, 2*Math.PI);
+    ctx.moveTo(xInPixels, yInPixels + radius);
     ctx.lineTo(0,lengthInPixels);
     ctx.stroke();
     ctx.restore();
