@@ -57,5 +57,5 @@ function draw(pendulumNumber, length, x, y){
 
 }
 function convertMetersToPixels(length){
-    return Math.round((length/2.54)*96*100);
+    return Math.round((length*96*100)/2.54);
 }
