@@ -20,6 +20,14 @@ module.exports = {
         },
         getCoordinates(){
             return helpers.coordinates(this.getCurrentAngle(), this.length);
+        },
+        getDrawInfo(){ // returns info needed to draw
+            const coordinates = this.getCoordinates();
+            return {
+                length: this.length,
+                x: coordinates.x,
+                y: coordinates.y
+            };
         }
     })
 }

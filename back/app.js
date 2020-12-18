@@ -29,6 +29,8 @@ const requestListener = function(req, res, pendulum){
         sendResponse(res, 200, 'application/json',String(pendulum.getCurrentAngle()));
     }else if( url == '/coordinates'){
         sendResponse(res, 200, 'application/json',JSON.stringify(pendulum.getCoordinates()));
+    }else if( url == '/drawinfo'){
+        sendResponse(res, 200, 'application/json',JSON.stringify(pendulum.getDrawInfo()));
     }else{
         sendResponse(res, 200, 'text/plain', '');
     }
