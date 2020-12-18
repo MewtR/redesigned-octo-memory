@@ -54,11 +54,20 @@ function draw(pendulumNumber, length, x, y){
     // Set origin to middle of the pendulum at rest
     ctx.translate(canvasXMidpoint, lengthInPixels);
     // Rotate so that it's more intuitive
-    ctx.rotate(2*Math.PI*(3/4));
+    //ctx.rotate(2*Math.PI*(3/4)); // this is completely wrong because the x ends up pointing up and the y ends up pointing right
+    ctx.scale(1,-1); // flip the y axis 
 
+    
+    /*
+    ctx.moveTo(0,0);
+    ctx.lineTo(0, 200);
+    ctx.moveTo(0,0);
+    ctx.lineTo(50, 0);
+    */
+    
     //Draws an arc which is centered at xInPixels,yInPixels
     ctx.arc(xInPixels, yInPixels, 10, 0 ,2*Math.PI);
-    ctx.lineTo(canvasXMidpoint,0);
+    ctx.lineTo(0,lengthInPixels);
     ctx.stroke();
     ctx.restore();
 

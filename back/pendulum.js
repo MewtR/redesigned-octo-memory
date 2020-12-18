@@ -1,7 +1,7 @@
 const Timer = require('./timer');
 const helpers = require('./helpers');
 module.exports = {
-    createPendulum: (initialAngle = 5, length = 0.03, timer = Timer.createTimer()) => ({
+    createPendulum: (initialAngle = 50, length = 0.03, timer = Timer.createTimer()) => ({
 
         initialAngle,
         length,
