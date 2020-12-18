@@ -13,6 +13,7 @@ let pendulums = "";
         pendulums += "<button id='angle"+i+"'>Angle</button>";
         pendulums += "<button id='coordinates"+i+"'>Coordinates</button>";
         pendulums += "<button id='drawinfo"+i+"'>Drawing Information</button>";
+        pendulums += "<button id='simulate"+i+"'>Simulate</button>";
         pendulums += "</div>";
         pendulums += "</div>";
     }
@@ -61,6 +62,9 @@ $( "#pendulums" ).html(pendulums);
                 console.log("y is: ",data.y);
                 draw(i, data.length, data.x, data.y);
             })
+        });
+        $( "#simulate"+i ).click(() => {
+            simulate(i);
         });
     }
 

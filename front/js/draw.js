@@ -56,6 +56,17 @@ function draw(pendulumNumber, length, x, y){
     ctx.restore();
 
 }
+function simulate(pendulumNumber){
+  setInterval(() =>{
+            let nodeUrl = "http://localhost:300"+pendulumNumber; 
+            $.get(nodeUrl+'/drawinfo', (data) => {
+                console.log("Response is: ",data);
+                console.log("x is: ",data.x);
+                console.log("y is: ",data.y);
+                draw(pendulumNumber, data.length, data.x, data.y);
+            })
+  }, 100, pendulumNumber, length,)  
+}
 function convertMetersToPixels(length){
     return Math.round((length*96*100)/2.54);
 }
