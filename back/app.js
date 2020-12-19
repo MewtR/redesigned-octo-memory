@@ -6,6 +6,22 @@ const hostname = '127.0.0.1';
 const port = 3000;
 const numberOfPendulums = 5;
 
+const pendulums = [Pendulum.createPendulum(1,numberOfPendulums), Pendulum.createPendulum(2,numberOfPendulums), Pendulum.createPendulum(3,numberOfPendulums),Pendulum.createPendulum(4,numberOfPendulums),Pendulum.createPendulum(5,numberOfPendulums)]; 
+
+for(pendulum of pendulums){
+    const neighbours = pendulum.getNeighbours();
+    let neighbouringPendulums = [];
+    for (neighbour of neighbours){
+        //console.log("Neighbour: ", neighbour);
+        neighbouringPendulums.push(pendulums[neighbour-1]);
+    }
+    //console.log("Neighbouring pendulums: ",neighbouringPendulums);
+    pendulum.setNeighbours(neighbouringPendulums);
+}
+for (pendulum of pendulums){
+    console.log("Pendulum: ",pendulum);
+}
+
 const sendResponse = function(res, statusCode, contentType, data){
     res.statusCode = statusCode;
     res.setHeader('Content-Type', contentType);
@@ -41,15 +57,23 @@ const requestListener = function(req, res, pendulum){
         })
     }else if( url == '/neighbours'){
         console.log("This pendulum's neighbours are: ", pendulum.getNeighbouringPendulums());
+        console.log("Pendulum number is: ", pendulum.getPendulumNumber());
+        const neighbouringPendulums = pendulum.getNeighbouringPendulums();
         sendResponse(res, 200, 'application/json','');
+        //sendResponse(res, 200, 'application/json',JSON.stringify(neighbouringPendulums));
+    }else if( method === 'GET' && url === ''){
+        console.log("Or here?");
+        sendResponse(res, 200, 'application/json',JSON.stringify(pendulum));
     }else{
+        console.log("Are we here?");
         sendResponse(res, 200, 'text/plain', '');
     }
 }
 
-for (let i = 1; i < 6; i++){
+for (let i = 1; i< 6; i++){
+    //const i = pendulum.getPendulumNumber();
     http.createServer((req,res) =>{
-        requestListener(req,res, Pendulum.createPendulum(i,numberOfPendulums));
+        requestListener(req,res, pendulums[i-1]);
     }).listen(port+i, hostname, () =>{
         console.log(`Pendulum ${i} running at http://${hostname}:${port+i}/`);
     });

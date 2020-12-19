@@ -1,12 +1,14 @@
 const Timer = require('./timer');
 const helpers = require('./helpers');
+const http = require('http');
 module.exports = {
-    createPendulum: (pendulumNumber, numberOfPendulums = 5,initialAngle = 20, length = 0.03, timer = Timer.createTimer()) => ({
+    createPendulum: (pendulumNumber, numberOfPendulums = 5,initialAngle = 20, length = 0.03, timer = Timer.createTimer(), neighbouringPendulums = []) => ({
         pendulumNumber,
         initialAngle,
         length,
         timer,
         numberOfPendulums,
+        neighbouringPendulums,
         start(){
             this.timer.start();
         },
@@ -49,18 +51,42 @@ module.exports = {
         get(){
             return this;
         },
+        // Returns array of numbers representing the pendulum numbers of neighbours
         getNeighbours(){
             if(pendulumNumber - 1 <= 0) return [pendulumNumber+1];
             if(pendulumNumber + 1 > numberOfPendulums) return [pendulumNumber-1];
             return [pendulumNumber-1,pendulumNumber+1];
         },
         getNeighbouringPendulums(){
-            const neighbours = this.getNeighbours();
-            let neighbouringPendulums = [];
-            for (const neighbour of neighbours){
-                console.log("Neighbour: ", neighbour);
-            } 
-            return neighbours;
+            return this.neighbouringPendulums;
+        },
+        // Given a pendulumNumber, performs GET request to retrieve it
+        getPendulum(pendulumNumber){
+            let data = '';
+            const options = {
+                hostname: '127.0.0.1',
+                port: 3000+pendulumNumber,
+                path: '',
+                method: 'GET'
+            }
+            const req = http.request(options, res =>{
+                console.log(`statusCode: ${res.statusCode}`)
+                res.on('data', d =>{
+                    data += d;
+                })
+                res.on('end', () =>{
+                    data = JSON.parse(data);
+                    console.log("Pendulum received is: ", data);
+                    return data;
+                })
+            })
+            req.end(); // or else request isn't sent
+        },
+        setNeighbours(neighbouringPendulums){
+            this.neighbouringPendulums = neighbouringPendulums;
+        },
+        getPendulumNumber(){
+            return this.pendulumNumber;
         }
     })
 }
