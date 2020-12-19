@@ -34,6 +34,9 @@ module.exports = {
                 angle: this.getCurrentAngle(),
                 stopped: this.isStopped()
             };
+        },
+        setLength(length){
+            this.length = length;
         }
     })
 }

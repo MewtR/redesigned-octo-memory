@@ -35,13 +35,13 @@ const requestListener = function(req, res, pendulum){
     }else if( url === '/set' && method === "POST"){
         let data = '';
         req.on('data', chunk =>{
-            console.log("chunk: ", chunk);
             data += chunk;
         })
         req.on('end', ()=>{
-            console.log("Data is: ", JSON.parse(data));
+            data = JSON.parse(data);
+            pendulum.setLength(data.length);
+            sendResponse(res, 200, 'text/plain', 'yes');
         })
-        sendResponse(res, 200, 'text/plain', '');
     }else{
         sendResponse(res, 200, 'text/plain', '');
     }
