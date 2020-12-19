@@ -16,6 +16,13 @@ let pendulums = "";
         pendulums += "<button id='drawinfo"+i+"'>Drawing Information</button>";
         pendulums += "<button id='simulate"+i+"'>Simulate</button>";
         pendulums += "</div>";
+
+
+        //Form to input info
+        pendulums += "<form id='form"+i+"'>"
+        pendulums += "<input type='number' id='length"+i+"'>"
+        pendulums += "<input type='submit' value='Set'>"
+        pendulums += "</form>"
         pendulums += "</div>";
     }
 
@@ -67,8 +74,24 @@ $( "#pendulums" ).html(pendulums);
         $( "#simulate"+i ).click(() => {
             simulate(i);
         });
+        $( "#form"+i ).submit((event) => {
+            console.log("i is: ", i);
+            console.log("length is: ", $( "#length"+i ).val());
+            set(i);
+            event.preventDefault();
+        });
     }
 
 let d = new Date();
 $( "h2" ).text("Today's date is "+d);
 })
+
+
+function set(i){
+    let nodeUrl = "http://localhost:300"+i;
+    $.post(nodeUrl+"/set", JSON.stringify({length: $( "#length"+i ).val()}), (data) =>{
+        console.log("success? ", data);
+    });
+    console.log("I is: ",i);
+}
+

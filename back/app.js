@@ -17,6 +17,7 @@ const sendResponse = function(res, statusCode, contentType, data){
 }
 const requestListener = function(req, res, pendulum){
     const url = req.url;
+    const method = req.method;
     if (url == '/start'){
         pendulum.start();
         sendResponse(res, 200, 'text/plain', 'Timer started');
@@ -31,6 +32,16 @@ const requestListener = function(req, res, pendulum){
         sendResponse(res, 200, 'application/json',JSON.stringify(pendulum.getCoordinates()));
     }else if( url == '/drawinfo'){
         sendResponse(res, 200, 'application/json',JSON.stringify(pendulum.getDrawInfo()));
+    }else if( url === '/set' && method === "POST"){
+        let data = '';
+        req.on('data', chunk =>{
+            console.log("chunk: ", chunk);
+            data += chunk;
+        })
+        req.on('end', ()=>{
+            console.log("Data is: ", JSON.parse(data));
+        })
+        sendResponse(res, 200, 'text/plain', '');
     }else{
         sendResponse(res, 200, 'text/plain', '');
     }
