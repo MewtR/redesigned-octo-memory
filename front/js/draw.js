@@ -29,6 +29,7 @@ function draw(pendulumNumber, length, x, y, time = 0, angle = 0){
 
 }
 function simulate(pendulumNumber){
+  start(pendulumNumber);
   const intervalID = setInterval(() =>{
             let nodeUrl = "http://localhost:300"+pendulumNumber; 
             $.get(nodeUrl+'/drawinfo', (data) => {

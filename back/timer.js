@@ -4,11 +4,12 @@ module.exports = {
         startTime,
         stopped,
         start(){
+            if (!this.stopped) return; // already started don't do anything
             this.stopped = false;
             this.startTime = Date.now();
         },
         stop(){
-            if (this.stopped) return;
+            if (this.stopped) return; //already stopped don't do anything
             this.stopped = true;
             if (!this.startTime) return;
             if (this.currentTimeElapsed)

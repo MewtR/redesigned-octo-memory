@@ -43,50 +43,13 @@ $( "#pendulums" ).html(pendulums);
 
     //Event listeners
     for (let i = 1; i < 3; i ++){
-        let nodeUrl = getNodeUrl(i);
-        $( "#node"+i ).click(() => {
-            $.get(nodeUrl, (data) => {
-                console.log("Here is my data: "+data);
-            })
-        });
-        $( "#start"+i ).click(() => {
-            $.get(nodeUrl+'/start', (data) => {
-                console.log("Response: "+data);
-            })
-        });
-        $( "#stop"+i ).click(() => {
-            $.get(nodeUrl+'/stop', (data) => {
-                console.log("Response: "+data);
-            })
-        });
-        $( "#time"+i ).click(() => {
-            $.get(nodeUrl+'/time', (data) => {
-                console.log("Response: "+data);
-            })
-        });
-        $( "#angle"+i ).click(() => {
-            $.get(nodeUrl+'/angle', (data) => {
-                console.log("Response: "+data);
-            })
-        });
-        $( "#coordinates"+i ).click(() => {
-            $.get(nodeUrl+'/coordinates', (data) => {
-                console.log("Response is: ",data);
-                console.log("x is: ",data.x);
-                console.log("y is: ",data.y);
-            })
-        });
-        $( "#drawinfo"+i ).click(() => {
-            $.get(nodeUrl+'/drawinfo', (data) => {
-                console.log("Response is: ",data);
-                console.log("x is: ",data.x);
-                console.log("y is: ",data.y);
-                draw(i, data.length, data.x, data.y);
-            })
-        });
-        $( "#simulate"+i ).click(() => {
-            simulate(i);
-        });
+        $( "#start"+i ).click(() => { start(i); });
+        $( "#stop"+i ).click(() => { stop(i); });
+        $( "#time"+i ).click(() => { time(i); });
+        $( "#angle"+i ).click(() => { angle(i); });
+        $( "#coordinates"+i ).click(() => { coordinates(i); });
+        $( "#drawinfo"+i ).click(() => { drawinfo(i); });
+        $( "#simulate"+i ).click(() => { simulate(i); });
         $( "#form"+i ).submit((event) => {
             set(i);
             event.preventDefault();
@@ -97,19 +60,57 @@ let d = new Date();
 $( "h2" ).text("Today's date is "+d);
 })
 
-
+function getNodeUrl(i){
+    return "http://localhost:300"+i;
+}
 //Set attributes
 function set(i){
-    let nodeUrl = getNodeUrl(i);
     const body = {
         length: parseFloat($( "#length"+i ).val()),
         initialAngle: parseFloat($( "#initangle"+i ).val())
     }
-    $.post(nodeUrl+"/set", JSON.stringify(body), (data) =>{
+    $.post(getNodeUrl(i)+"/set", JSON.stringify(body), (data) =>{
         draw(i, data.length, data.x, data.y);
     });
 }
-
-function getNodeUrl(i){
-    return "http://localhost:300"+i;
+// Start pendulum
+function start(i){
+  $.get(getNodeUrl(i)+'/start', (data) => {
+      console.log("Response: "+data);
+  })
+}
+// Stop pendulum
+function stop(i){
+$.get(getNodeUrl(i)+'/stop', (data) => {
+    console.log("Response: "+data);
+})
+}
+// Get time elapsed
+function time(i){
+$.get(getNodeUrl(i)+'/time', (data) => {
+    console.log("Response: "+data);
+})
+}
+// Get current angle
+function angle(i){
+$.get(getNodeUrl(i)+'/angle', (data) => {
+    console.log("Response: "+data);
+})
+}
+// Get current coordinates
+function coordinates(i){
+$.get(getNodeUrl(i)+'/coordinates', (data) => {
+    console.log("Response is: ",data);
+    console.log("x is: ",data.x);
+    console.log("y is: ",data.y);
+})
+}
+// Get info need to draw pendulum
+function drawinfo(i){
+$.get(getNodeUrl(i)+'/drawinfo', (data) => {
+    console.log("Response is: ",data);
+    console.log("x is: ",data.x);
+    console.log("y is: ",data.y);
+    draw(i, data.length, data.x, data.y);
+})
 }
