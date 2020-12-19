@@ -47,8 +47,13 @@ const requestListener = function(req, res, pendulum){
         })
         req.on('end', ()=>{
             data = JSON.parse(data);
-            pendulum.set(data);
-            sendResponse(res, 200, 'application/json', JSON.stringify(pendulum,replacer));
+            const equal = pendulum.checkEqualAttributes(data);
+            if(equal.length === 0){
+                pendulum.set(data);
+                sendResponse(res, 200, 'application/json', JSON.stringify(pendulum,replacer));
+            }else{
+                sendResponse(res, 400, 'text/plain', 'Two consecutive neighbours cannot have the same attributes. Please check: '+ equal.join());
+            }
         })
     }else if( url == '/neighbours'){
         const neighbouringPendulums = pendulum.getNeighbouringPendulums();
