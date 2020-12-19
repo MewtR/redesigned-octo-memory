@@ -2,7 +2,7 @@ const Timer = require('./timer');
 const helpers = require('./helpers');
 const http = require('http');
 module.exports = {
-    createPendulum: (pendulumNumber, numberOfPendulums = 5,initialAngle = 20, length = 0.03, timer = Timer.createTimer(), neighbouringPendulums = []) => ({
+    createPendulum: (pendulumNumber, numberOfPendulums = 5, initialAngle, length, timer = Timer.createTimer(), neighbouringPendulums = []) => ({
         pendulumNumber,
         initialAngle,
         length,
@@ -10,7 +10,10 @@ module.exports = {
         numberOfPendulums,
         neighbouringPendulums,
         start(){
+            if (this.checkIfSafeToStart()){
             this.timer.start();
+                return true;
+            }else return false;
         },
         stop(){
             this.timer.stop();
@@ -88,6 +91,11 @@ module.exports = {
                 }
             }
             return equal;
+        },
+        checkIfSafeToStart(){
+            if (this.length === 0) return false;
+            if (this.initialAngle == null) return false;
+            return true;
         }
     })
 }

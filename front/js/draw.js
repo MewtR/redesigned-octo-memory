@@ -28,8 +28,8 @@ function draw(pendulumNumber, length, x, y, time = 0, angle = 0){
 
 }
 function simulate(pendulumNumber){
-  start(pendulumNumber);
-  const intervalID = setInterval(() =>{
+    start(pendulumNumber, (pendulumNumber)=>{
+        const intervalID = setInterval(() =>{
             let nodeUrl = "http://localhost:300"+pendulumNumber; 
             $.get(nodeUrl+'/drawinfo', (data) => {
                 draw(pendulumNumber, data.length, data.x, data.y,data.time, data.angle);
@@ -37,7 +37,9 @@ function simulate(pendulumNumber){
             }).fail(() =>{
                 clearInterval(intervalID);
             });
-  }, 100, pendulumNumber, length)  
+        }, 100, pendulumNumber, length)  
+    });
+  
 }
 function convertMetersToPixels(length){
     return Math.round((length*96)/(2.54*2));

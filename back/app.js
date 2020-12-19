@@ -27,8 +27,9 @@ const requestListener = function(req, res, pendulum){
     const url = req.url;
     const method = req.method;
     if (url == '/start'){
-        pendulum.start();
-        sendResponse(res, 200, 'text/plain', 'Timer started');
+        const started = pendulum.start();
+        if(started) sendResponse(res, 200, 'text/plain', 'Timer started');
+        else sendResponse(res, 400, 'text/plain', 'Unable to start due to some missing attributes');
     }else if(url == '/stop'){
         pendulum.stop();
         sendResponse(res, 200, 'text/plain', 'Timer stopped');

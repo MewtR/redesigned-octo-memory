@@ -74,9 +74,13 @@ function set(i){
     });
 }
 // Start pendulum
-function start(i){
+function start(i, callback){
   $.get(getNodeUrl(i)+'/start', (data) => {
       console.log("Response: "+data);
+      callback(i);
+  }).fail((data) =>{
+      console.log("What happened?: ", data);
+      return data.status;
   })
 }
 // Stop pendulum
