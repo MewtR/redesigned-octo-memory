@@ -45,8 +45,13 @@ module.exports = {
             this.initialAngle = initialAngle;
         },
         set(attributes){
-            if (attributes['length']) this.setLength(attributes.length);
-            if (attributes['initialAngle']) this.setInitialAngle(attributes.initialAngle);
+            console.log("Equal attributes are: ", this.checkEqualAttributes(attributes));
+            if (attributes['length']) {
+                this.setLength(attributes.length);
+            }
+            if (attributes['initialAngle']){ 
+                this.setInitialAngle(attributes.initialAngle);
+            }
         },
         get(){
             return this;
@@ -65,6 +70,15 @@ module.exports = {
         },
         getPendulumNumber(){
             return this.pendulumNumber;
+        },
+        checkEqualAttributes(attributes){
+            let equal = [];
+            for (const [key, value] of Object.entries(attributes)){
+                for (neighbour of this.neighbouringPendulums){
+                    if (neighbour[key] === value && !equal.includes(key)) equal.push(key);
+                }
+            }
+            return equal;
         }
     })
 }

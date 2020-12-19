@@ -24,7 +24,7 @@ let pendulums = "";
         pendulums += "<label for='length"+i+"'>Length in m </label>"
         pendulums += "</div>"
         pendulums += "<div>"
-        pendulums += "<input type='number' step=0.01 min=1 max=10 name='length"+i+"' id='length"+i+"'>"
+        pendulums += "<input type='number' step=0.01 min=0.03 max=10 name='length"+i+"' id='length"+i+"'>"
         pendulums += "</div>"
         pendulums += "<div>"
         pendulums += "<label for='initangle"+i+"'>Initial Angle </label>"
