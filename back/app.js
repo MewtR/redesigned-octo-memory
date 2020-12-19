@@ -39,8 +39,8 @@ const requestListener = function(req, res, pendulum){
         })
         req.on('end', ()=>{
             data = JSON.parse(data);
-            pendulum.setLength(data.length);
-            sendResponse(res, 200, 'text/plain', 'yes');
+            pendulum.set(data);
+            sendResponse(res, 200, 'application/json', JSON.stringify(pendulum));
         })
     }else{
         sendResponse(res, 200, 'text/plain', '');

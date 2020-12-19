@@ -20,9 +20,21 @@ let pendulums = "";
 
         //Form to input info
         pendulums += "<form id='form"+i+"'>"
+        pendulums += "<div>"
         pendulums += "<label for='length"+i+"'>Length in m </label>"
-        pendulums += "<input type='number' name='length"+i+" id='length"+i+"'>"
+        pendulums += "</div>"
+        pendulums += "<div>"
+        pendulums += "<input type='number' name='length"+i+"' id='length"+i+"'>"
+        pendulums += "</div>"
+        pendulums += "<div>"
+        pendulums += "<label for='initangle"+i+"'>Initial Angle </label>"
+        pendulums += "</div>"
+        pendulums += "<div>"
+        pendulums += "<input type='number' name='initangle"+i+"' id='initangle"+i+"'>"
+        pendulums += "</div>"
+        pendulums += "<div>"
         pendulums += "<input type='submit' value='Set'>"
+        pendulums += "</div>"
         pendulums += "</form>"
         pendulums += "</div>";
     }
@@ -90,7 +102,11 @@ $( "h2" ).text("Today's date is "+d);
 
 function set(i){
     let nodeUrl = "http://localhost:300"+i;
-    $.post(nodeUrl+"/set", JSON.stringify({length: $( "#length"+i ).val()}), (data) =>{
+    const body = ({
+        length: $( "#length"+i ).val(),
+        initialAngle: $( "#initangle"+i ).val()
+    })
+    $.post(nodeUrl+"/set", JSON.stringify(body), (data) =>{
         console.log("success? ", data);
     });
     console.log("I is: ",i);

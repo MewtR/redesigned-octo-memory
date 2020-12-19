@@ -37,6 +37,13 @@ module.exports = {
         },
         setLength(length){
             this.length = length;
+        },
+        setInitialAngle(initialAngle){
+            this.initialAngle = initialAngle;
+        },
+        set(attributes){
+            if (attributes['length']) this.setLength(attributes.length);
+            if (attributes['initialAngle']) this.setInitialAngle(attributes.initialAngle);
         }
     })
 }
