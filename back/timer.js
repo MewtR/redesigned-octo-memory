@@ -1,5 +1,5 @@
 module.exports = { 
-    createTimer : (currentTimeElapsed = null, startTime = null, stopped = false) =>  ({
+    createTimer : (currentTimeElapsed = null, startTime = null, stopped = true) =>  ({
         currentTimeElapsed,
         startTime,
         stopped,
@@ -29,6 +29,11 @@ module.exports = {
         },
         isStopped(){
             return this.stopped;
+        },
+        reset(){
+            this.currentTimeElapsed = null;
+            this.startTime = null;
+            this.stopped = true;
         }
     })
     }

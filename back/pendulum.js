@@ -15,6 +15,9 @@ module.exports = {
         stop(){
             this.timer.stop();
         },
+        reset(){
+            this.timer.reset();
+        },
         getCurrentTimeElapsed(){
             return this.timer.getCurrentTimeElapsed();
         },
@@ -51,6 +54,13 @@ module.exports = {
             if (attributes['initialAngle']){ 
                 this.setInitialAngle(attributes.initialAngle);
             }
+            this.reset();
+            const coordinates = this.getCoordinates();
+            return({
+                ...this,
+                x: coordinates.x,
+                y: coordinates.y
+            })
         },
         get(){
             return this;

@@ -49,8 +49,7 @@ const requestListener = function(req, res, pendulum){
             data = JSON.parse(data);
             const equal = pendulum.checkEqualAttributes(data);
             if(equal.length === 0){
-                pendulum.set(data);
-                sendResponse(res, 200, 'application/json', JSON.stringify(pendulum,replacer));
+                sendResponse(res, 200, 'application/json', JSON.stringify(pendulum.set(data),replacer));
             }else{
                 sendResponse(res, 400, 'text/plain', 'Two consecutive neighbours cannot have the same attributes. Please check: '+ equal.join());
             }

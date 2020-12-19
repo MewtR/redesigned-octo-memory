@@ -43,7 +43,7 @@ $( "#pendulums" ).html(pendulums);
 
     //Event listeners
     for (let i = 1; i < 3; i ++){
-        let nodeUrl = "http://localhost:300"+i;
+        let nodeUrl = getNodeUrl(i);
         $( "#node"+i ).click(() => {
             $.get(nodeUrl, (data) => {
                 console.log("Here is my data: "+data);
@@ -98,14 +98,18 @@ $( "h2" ).text("Today's date is "+d);
 })
 
 
+//Set attributes
 function set(i){
-    let nodeUrl = "http://localhost:300"+i;
+    let nodeUrl = getNodeUrl(i);
     const body = {
         length: parseFloat($( "#length"+i ).val()),
         initialAngle: parseFloat($( "#initangle"+i ).val())
     }
     $.post(nodeUrl+"/set", JSON.stringify(body), (data) =>{
-        console.log("success? ", data);
+        draw(i, data.length, data.x, data.y);
     });
 }
 
+function getNodeUrl(i){
+    return "http://localhost:300"+i;
+}
