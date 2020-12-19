@@ -10,11 +10,10 @@ function draw(pendulumNumber, length, x, y, time = 0, angle = 0){
     // also more easily clear the  previous drawings
     ctx.save();
     const canvasXMidpoint = Math.round(canvas[0].width * 0.5);
-    const canvasYMidpoint = Math.round(canvas[0].height * 0.5);
     const lengthInPixels = convertMetersToPixels(length);
     const xInPixels = convertMetersToPixels(x);
     const yInPixels = convertMetersToPixels(y);
-    console.log("x,y in pixels: "+x+","+y+" "+xInPixels+","+yInPixels+ " time: "+time+" angle: "+angle);
+    //console.log("x,y in pixels: "+x+","+y+" "+xInPixels+","+yInPixels+ " time: "+time+" angle: "+angle);
     ctx.beginPath();
     // Set origin to middle of the pendulum at rest
     ctx.translate(canvasXMidpoint, lengthInPixels);
@@ -41,5 +40,5 @@ function simulate(pendulumNumber){
   }, 100, pendulumNumber, length)  
 }
 function convertMetersToPixels(length){
-    return Math.round((length*96*100)/2.54);
+    return Math.round((length*96)/(2.54*2));
 }
