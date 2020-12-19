@@ -45,7 +45,6 @@ module.exports = {
             this.initialAngle = initialAngle;
         },
         set(attributes){
-            console.log("Equal attributes are: ", this.checkEqualAttributes(attributes));
             if (attributes['length']) {
                 this.setLength(attributes.length);
             }

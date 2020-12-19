@@ -1,32 +1,3 @@
-$(document).ready(function(){
-    
-   
-const canvas = $("#pendulum1");
-const ctx = canvas[0].getContext('2d');
-ctx.save();
-//console.log("First context is: ",ctx);
-ctx.beginPath();
-//coordinate system at the center of the circle
-ctx.translate(150,75);
-ctx.rotate(2*Math.PI*(3/4));
-ctx.arc(0, 0, 10, 0 ,2*Math.PI);
-ctx.lineTo(150,0);
-ctx.stroke();
-ctx.restore();
-
-
-const canvas2 = $("#pendulum2");
-const ctx2 = canvas2[0].getContext('2d');
-ctx2.beginPath();
-//coordinate system at the center of the circle
-ctx2.translate(150,75);
-ctx2.rotate(2*Math.PI*(3/4));
-ctx2.arc(0, 0, 10, 0 ,2*Math.PI);
-ctx2.lineTo(150,0);
-ctx2.stroke();
-
-})
-
 // functions defined here can be called from other script
 function draw(pendulumNumber, length, x, y, time = 0, angle = 0){
     const radius = 10;
