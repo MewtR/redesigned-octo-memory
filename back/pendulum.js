@@ -1,11 +1,12 @@
 const Timer = require('./timer');
 const helpers = require('./helpers');
 module.exports = {
-    createPendulum: (initialAngle = 20, length = 0.03, timer = Timer.createTimer()) => ({
-
+    createPendulum: (pendulumNumber, numberOfPendulums = 5,initialAngle = 20, length = 0.03, timer = Timer.createTimer()) => ({
+        pendulumNumber,
         initialAngle,
         length,
         timer,
+        numberOfPendulums,
         start(){
             this.timer.start();
         },
@@ -44,6 +45,22 @@ module.exports = {
         set(attributes){
             if (attributes['length']) this.setLength(attributes.length);
             if (attributes['initialAngle']) this.setInitialAngle(attributes.initialAngle);
+        },
+        get(){
+            return this;
+        },
+        getNeighbours(){
+            if(pendulumNumber - 1 <= 0) return [pendulumNumber+1];
+            if(pendulumNumber + 1 > numberOfPendulums) return [pendulumNumber-1];
+            return [pendulumNumber-1,pendulumNumber+1];
+        },
+        getNeighbouringPendulums(){
+            const neighbours = this.getNeighbours();
+            let neighbouringPendulums = [];
+            for (const neighbour of neighbours){
+                console.log("Neighbour: ", neighbour);
+            } 
+            return neighbours;
         }
     })
 }

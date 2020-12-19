@@ -1,13 +1,10 @@
 const http = require('http');
-const Timer = require('./timer');
 const Pendulum = require('./pendulum');
 
 
 const hostname = '127.0.0.1';
-const port = 3001;
-
-const pendulum1 = Pendulum.createPendulum();
-const pendulum2 = Pendulum.createPendulum();
+const port = 3000;
+const numberOfPendulums = 5;
 
 const sendResponse = function(res, statusCode, contentType, data){
     res.statusCode = statusCode;
@@ -42,19 +39,18 @@ const requestListener = function(req, res, pendulum){
             pendulum.set(data);
             sendResponse(res, 200, 'application/json', JSON.stringify(pendulum));
         })
+    }else if( url == '/neighbours'){
+        console.log("This pendulum's neighbours are: ", pendulum.getNeighbouringPendulums());
+        sendResponse(res, 200, 'application/json','');
     }else{
         sendResponse(res, 200, 'text/plain', '');
     }
 }
 
-const server = http.createServer((req,res) =>{
-    requestListener(req,res,pendulum1);
-}).listen(port, hostname, () =>{
-    console.log(`Pendulum running at http://${hostname}:${port}/`);
-});
-
-const server2 = http.createServer((req, res) =>{
-    requestListener(req,res,pendulum2);
-}).listen(port+1, hostname, () =>{
-    console.log(`Pendulum running at http://${hostname}:${port+1}/`);
-});
+for (let i = 1; i < 6; i++){
+    http.createServer((req,res) =>{
+        requestListener(req,res, Pendulum.createPendulum(i,numberOfPendulums));
+    }).listen(port+i, hostname, () =>{
+        console.log(`Pendulum ${i} running at http://${hostname}:${port+i}/`);
+    });
+}

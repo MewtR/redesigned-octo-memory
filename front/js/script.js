@@ -88,8 +88,6 @@ $( "#pendulums" ).html(pendulums);
             simulate(i);
         });
         $( "#form"+i ).submit((event) => {
-            console.log("i is: ", i);
-            console.log("length is: ", $( "#length"+i ).val());
             set(i);
             event.preventDefault();
         });
@@ -109,6 +107,5 @@ function set(i){
     $.post(nodeUrl+"/set", JSON.stringify(body), (data) =>{
         console.log("success? ", data);
     });
-    console.log("I is: ",i);
 }
 
