@@ -12,14 +12,9 @@ for(pendulum of pendulums){
     const neighbours = pendulum.getNeighbours();
     let neighbouringPendulums = [];
     for (neighbour of neighbours){
-        //console.log("Neighbour: ", neighbour);
         neighbouringPendulums.push(pendulums[neighbour-1]);
     }
-    //console.log("Neighbouring pendulums: ",neighbouringPendulums);
     pendulum.setNeighbours(neighbouringPendulums);
-}
-for (pendulum of pendulums){
-    console.log("Pendulum: ",pendulum);
 }
 
 const sendResponse = function(res, statusCode, contentType, data){
@@ -53,19 +48,14 @@ const requestListener = function(req, res, pendulum){
         req.on('end', ()=>{
             data = JSON.parse(data);
             pendulum.set(data);
-            sendResponse(res, 200, 'application/json', JSON.stringify(pendulum));
+            sendResponse(res, 200, 'application/json', JSON.stringify(pendulum,replacer));
         })
     }else if( url == '/neighbours'){
-        console.log("This pendulum's neighbours are: ", pendulum.getNeighbouringPendulums());
-        console.log("Pendulum number is: ", pendulum.getPendulumNumber());
         const neighbouringPendulums = pendulum.getNeighbouringPendulums();
-        sendResponse(res, 200, 'application/json','');
-        //sendResponse(res, 200, 'application/json',JSON.stringify(neighbouringPendulums));
-    }else if( method === 'GET' && url === ''){
-        console.log("Or here?");
-        sendResponse(res, 200, 'application/json',JSON.stringify(pendulum));
+        sendResponse(res, 200, 'application/json',JSON.stringify(neighbouringPendulums, replacer));
+    }else if( method === 'GET' && url === '/'){
+        sendResponse(res, 200, 'application/json',JSON.stringify(pendulum,replacer));
     }else{
-        console.log("Are we here?");
         sendResponse(res, 200, 'text/plain', '');
     }
 }
@@ -77,4 +67,9 @@ for (let i = 1; i< 6; i++){
     }).listen(port+i, hostname, () =>{
         console.log(`Pendulum ${i} running at http://${hostname}:${port+i}/`);
     });
+}
+function replacer(key, value){
+    // ignore neighbours
+    if (key === "neighbouringPendulums"){
+    }else return value;
 }

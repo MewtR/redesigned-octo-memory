@@ -60,28 +60,6 @@ module.exports = {
         getNeighbouringPendulums(){
             return this.neighbouringPendulums;
         },
-        // Given a pendulumNumber, performs GET request to retrieve it
-        getPendulum(pendulumNumber){
-            let data = '';
-            const options = {
-                hostname: '127.0.0.1',
-                port: 3000+pendulumNumber,
-                path: '',
-                method: 'GET'
-            }
-            const req = http.request(options, res =>{
-                console.log(`statusCode: ${res.statusCode}`)
-                res.on('data', d =>{
-                    data += d;
-                })
-                res.on('end', () =>{
-                    data = JSON.parse(data);
-                    console.log("Pendulum received is: ", data);
-                    return data;
-                })
-            })
-            req.end(); // or else request isn't sent
-        },
         setNeighbours(neighbouringPendulums){
             this.neighbouringPendulums = neighbouringPendulums;
         },
