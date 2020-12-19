@@ -30,7 +30,7 @@ let pendulums = "";
         pendulums += "<label for='initangle"+i+"'>Initial Angle </label>"
         pendulums += "</div>"
         pendulums += "<div>"
-        pendulums += "<input type='number' step=0.01 min=1 max=90 name='initangle"+i+"' id='initangle"+i+"'>"
+        pendulums += "<input type='number' step=0.01 min=-90 max=90 name='initangle"+i+"' id='initangle"+i+"'>"
         pendulums += "</div>"
         pendulums += "<div>"
         pendulums += "<input type='submit' value='Set'>"
