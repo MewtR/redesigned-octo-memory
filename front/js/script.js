@@ -20,7 +20,8 @@ let pendulums = "";
 
         //Form to input info
         pendulums += "<form id='form"+i+"'>"
-        pendulums += "<input type='number' id='length"+i+"'>"
+        pendulums += "<label for='length"+i+"'>Length in m </label>"
+        pendulums += "<input type='number' name='length"+i+" id='length"+i+"'>"
         pendulums += "<input type='submit' value='Set'>"
         pendulums += "</form>"
         pendulums += "</div>";

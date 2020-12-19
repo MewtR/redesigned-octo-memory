@@ -66,7 +66,7 @@ function simulate(pendulumNumber){
             }).fail(() =>{
                 clearInterval(intervalID);
             });
-  }, 100, pendulumNumber, length,)  
+  }, 100, pendulumNumber, length)  
 }
 function convertMetersToPixels(length){
     return Math.round((length*96*100)/2.54);
