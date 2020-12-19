@@ -24,13 +24,13 @@ let pendulums = "";
         pendulums += "<label for='length"+i+"'>Length in m </label>"
         pendulums += "</div>"
         pendulums += "<div>"
-        pendulums += "<input type='number' name='length"+i+"' id='length"+i+"'>"
+        pendulums += "<input type='number' step=0.01 min=1 max=10 name='length"+i+"' id='length"+i+"'>"
         pendulums += "</div>"
         pendulums += "<div>"
         pendulums += "<label for='initangle"+i+"'>Initial Angle </label>"
         pendulums += "</div>"
         pendulums += "<div>"
-        pendulums += "<input type='number' name='initangle"+i+"' id='initangle"+i+"'>"
+        pendulums += "<input type='number' step=0.01 min=1 max=90 name='initangle"+i+"' id='initangle"+i+"'>"
         pendulums += "</div>"
         pendulums += "<div>"
         pendulums += "<input type='submit' value='Set'>"
@@ -100,10 +100,10 @@ $( "h2" ).text("Today's date is "+d);
 
 function set(i){
     let nodeUrl = "http://localhost:300"+i;
-    const body = ({
-        length: $( "#length"+i ).val(),
-        initialAngle: $( "#initangle"+i ).val()
-    })
+    const body = {
+        length: parseFloat($( "#length"+i ).val()),
+        initialAngle: parseFloat($( "#initangle"+i ).val())
+    }
     $.post(nodeUrl+"/set", JSON.stringify(body), (data) =>{
         console.log("success? ", data);
     });
