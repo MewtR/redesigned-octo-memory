@@ -37,7 +37,7 @@ function simulate(pendulumNumber){
             }).fail(() =>{
                 clearInterval(intervalID);
             });
-        }, 100, pendulumNumber, length)  
+        }, 200, pendulumNumber, length)  
     });
   
 }
