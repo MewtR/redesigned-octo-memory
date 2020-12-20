@@ -3,7 +3,8 @@ let pendulums = "";
 
     //Generate pendulum canvases
     for (let i = 1; i < 6; i ++){
-        pendulums += "<div class='d-flex flex-column'>";
+        pendulums += "<div class='d-flex flex-column justify-content-center align-items-center'>";
+        pendulums += "<p class='mb-0 mt-3'>pendulum #" + i+ "</p>";
         pendulums += "<canvas id='pendulum"+i+"' class='mt-3 border-top border-dark' width='400' height='300'></canvas>";
         pendulums += "<div class='d-flex flex-column'>";
         pendulums += "<div class='d-flex flex-row flex-wrap'>";
