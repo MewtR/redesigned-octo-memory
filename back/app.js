@@ -27,20 +27,20 @@ const sendResponse = function(res, statusCode, contentType, data){
 const requestListener = function(req, res, pendulum){
     const url = req.url;
     const method = req.method;
-    if (url == '/start'){
+    if (url == '/start' && method === 'GET'){
         const started = pendulum.start();
         if(started) sendResponse(res, 200, 'text/plain', 'Timer started');
         else sendResponse(res, 400, 'text/plain', 'Unable to start due to some missing attributes');
-    }else if(url == '/stop'){
+    }else if(url == '/stop' && method === 'GET'){
         pendulum.stop();
         sendResponse(res, 200, 'text/plain', 'Timer stopped');
-    }else if( url == '/time'){
+    }else if( url == '/time' && method === 'GET'){
         sendResponse(res, 200, 'text/plain', 'Current time elapsed is '+String(pendulum.getCurrentTimeElapsed()));
-    }else if( url == '/angle'){
+    }else if( url == '/angle' && method === 'GET'){
         sendResponse(res, 200, 'application/json',String(pendulum.getCurrentAngle()));
-    }else if( url == '/coordinates'){
+    }else if( url == '/coordinates' && method === 'GET'){
         sendResponse(res, 200, 'application/json',JSON.stringify(pendulum.getCoordinates()));
-    }else if( url == '/drawinfo'){
+    }else if( url == '/drawinfo' && method === 'GET'){
         sendResponse(res, 200, 'application/json',JSON.stringify(pendulum.getDrawInfo()));
     }else if( url === '/set' && method === "POST"){
         let data = '';
@@ -56,10 +56,10 @@ const requestListener = function(req, res, pendulum){
                 sendResponse(res, 400, 'text/plain', 'Two consecutive neighbours cannot have the same attributes. Please check: '+ equal.join());
             }
         })
-    }else if( url == '/neighbours'){
+    }else if( url == '/neighbours'  && method === 'GET'){
         const neighbouringPendulums = pendulum.getNeighbouringPendulums();
         sendResponse(res, 200, 'application/json',JSON.stringify(neighbouringPendulums, replacer));
-    }else if( url == '/python'){
+    }else if( url == '/python' && method === 'GET'){
         if(pendulum.generatePythonSimulation())
             sendResponse(res, 200, 'text/plain', 'Python simulation successfully generated');
         else
@@ -75,7 +75,7 @@ const requestListener = function(req, res, pendulum){
 http.createServer((req,res) =>{
     const url = req.url;
     const method = req.method;
-    if (url == '/export'){
+    if (url == '/export' && method === 'GET'){
         let config = [];
         for(pendulum of pendulums){
             config.push(pendulum.getConfig());
@@ -93,7 +93,6 @@ http.createServer((req,res) =>{
     console.log(`Main node running at http://${hostname}:${port}/`);
 });
 for (let i = 1; i< 6; i++){
-    //const i = pendulum.getPendulumNumber();
     http.createServer((req,res) =>{
         requestListener(req,res, pendulums[i-1]);
     }).listen(port+i, hostname, () =>{
