@@ -39,10 +39,10 @@ let pendulums = "";
         pendulums += "<input type='number' step=0.1 min=0.1 max=25 name='mass"+i+"' id='mass"+i+"'>"
         pendulums += "</div>"
         pendulums += "<div>"
-        pendulums += "<label for='wind"+i+"'>Wind in m/s </label>"
+        pendulums += "<label for='proportionalityConstant"+i+"'>Proportionality Constant</label>"
         pendulums += "</div>"
         pendulums += "<div>"
-        pendulums += "<input type='number' step=0.1 min=0.1 max=50 name='wind"+i+"' id='wind"+i+"'>"
+        pendulums += "<input type='number' step=0.1 min=0.1 max=50 name='proportionalityConstant"+i+"' id='proportionalityConstant"+i+"'>"
         pendulums += "</div>"
         pendulums += "<div>"
         pendulums += "<input type='submit' value='Set'>"
@@ -81,7 +81,7 @@ function set(i){
         length: parseFloat($( "#length"+i ).val()),
         initialAngle: parseFloat($( "#initangle"+i ).val()),
         mass: parseFloat($( "#mass"+i ).val()),
-        wind: parseFloat($( "#wind"+i ).val()),
+        proportionalityConstant: parseFloat($( "#proportionalityConstant"+i ).val()),
     }
     $.post(getNodeUrl(i)+"/set", JSON.stringify(body), (data) =>{
         draw(i, data.length, data.x, data.y);

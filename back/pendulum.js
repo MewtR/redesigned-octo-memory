@@ -2,12 +2,12 @@ const Timer = require('./timer');
 const helpers = require('./helpers');
 const http = require('http');
 module.exports = {
-    createPendulum: (pendulumNumber, numberOfPendulums = 5, initialAngle, length, mass, wind, timer = Timer.createTimer(), neighbouringPendulums = []) => ({
+    createPendulum: (pendulumNumber, numberOfPendulums = 5, initialAngle, length, mass, proportionalityConstant, timer = Timer.createTimer(), neighbouringPendulums = []) => ({
         pendulumNumber,
         initialAngle,
         length,
         mass,
-        wind,
+        proportionalityConstant,
         timer,
         numberOfPendulums,
         neighbouringPendulums,
@@ -27,7 +27,9 @@ module.exports = {
             return this.timer.getCurrentTimeElapsed();
         },
         getCurrentAngle(){
-            return helpers.angularDisplacement(this.initialAngle, this.length, this.timer.getCurrentTimeElapsed());
+            if(this.mass && this.proportionalityConstant)
+                return helpers.dampedAngularDisplacement(this.initialAngle,this.length,this.timer.getCurrentTimeElapsed(),this.mass,this.proportionalityConstant);
+            else return helpers.angularDisplacement(this.initialAngle, this.length, this.timer.getCurrentTimeElapsed());
         },
         getCoordinates(){
             return helpers.coordinates(this.getCurrentAngle(), this.length);
@@ -52,8 +54,8 @@ module.exports = {
         setInitialAngle(initialAngle){
             this.initialAngle = initialAngle;
         },
-        setWind(wind){
-            this.wind = wind;
+        setproportionalityConstant(proportionalityConstant){
+            this.proportionalityConstant = proportionalityConstant;
         },
         setMass(mass){
             this.mass = mass;
@@ -65,8 +67,8 @@ module.exports = {
             if (attributes['initialAngle']){ 
                 this.setInitialAngle(attributes.initialAngle);
             }
-            if (attributes['wind']){ 
-                this.setWind(attributes.wind);
+            if (attributes['proportionalityConstant']){ 
+                this.setproportionalityConstant(attributes.proportionalityConstant);
             }
             if (attributes['mass']){ 
                 this.setMass(attributes.mass);
@@ -109,8 +111,8 @@ module.exports = {
         checkIfSafeToStart(){
             if (this.length === 0) return false;
             if (this.initialAngle == null) return false;
-            //If you have wind, you must have mass
-            if ((this.wind == null && this.mass != null) || (this.wind  != null && this.mass == null)) return false;
+            //If you have proportionalityConstant, you must have mass
+            if ((this.proportionalityConstant == null && this.mass != null) || (this.proportionalityConstant  != null && this.mass == null)) return false;
             return true;
         }
     })
