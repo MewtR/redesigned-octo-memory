@@ -68,6 +68,7 @@ $( "#pendulums" ).html(pendulums);
         });
     }
 
+
 let d = new Date();
 $( "h2" ).text("Today's date is "+d);
 })
