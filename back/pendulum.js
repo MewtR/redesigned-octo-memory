@@ -114,6 +114,15 @@ module.exports = {
             //If you have proportionalityConstant, you must have mass
             if ((this.proportionalityConstant == null && this.mass != null) || (this.proportionalityConstant  != null && this.mass == null)) return false;
             return true;
+        },
+        getConfig(){
+            return ({
+                pendulumNumber: this.pendulumNumber,
+                initialAngle: this.initialAngle,
+                length: this.length,
+                mass: this.mass,
+                proportionalityConstant: this.proportionalityConstant
+            })
         }
     })
 }

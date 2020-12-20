@@ -1,4 +1,5 @@
 const http = require('http');
+const fs = require('fs');
 const Pendulum = require('./pendulum');
 
 
@@ -65,6 +66,22 @@ const requestListener = function(req, res, pendulum){
     }
 }
 
+http.createServer((req,res) =>{
+    const url = req.url;
+    const method = req.method;
+    if (url == '/export'){
+        let config = [];
+        for(pendulum of pendulums){
+            config.push(pendulum.getConfig());
+        }
+        fs.writeFile('config.json', JSON.stringify(config),  (err) =>{
+            if  (err) throw err;
+            sendResponse(res, 200, 'text/plain', 'Data written to file');
+        });
+    }
+}).listen(port, hostname, () =>{
+    console.log(`Main node running at http://${hostname}:${port}/`);
+});
 for (let i = 1; i< 6; i++){
     //const i = pendulum.getPendulumNumber();
     http.createServer((req,res) =>{
