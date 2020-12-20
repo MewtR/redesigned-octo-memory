@@ -9,44 +9,39 @@ let pendulums = "";
         pendulums += "<div class='d-flex flex-column'>";
         pendulums += "<div class='d-flex flex-row flex-wrap'>";
         //pendulums += "<button id='start"+i+"'>Start</button>";
-        pendulums += "<button id='stop"+i+"'>Stop</button>";
+        pendulums += "<button type='button' class='btn btn-primary mx-1' id='stop"+i+"'>Stop</button>";
         //pendulums += "<button id='time"+i+"'>Time</button>";
         //pendulums += "<button id='angle"+i+"'>Angle</button>";
-        pendulums += "<button id='simulate"+i+"'>Simulate</button>";
-        pendulums += "<button id='python"+i+"'>Generate Python</button>";
+        pendulums += "<button class='btn btn-primary mx-1' id='simulate"+i+"'>Simulate</button>";
+        pendulums += "<button class='btn btn-primary mx-1' id='python"+i+"'>Generate Python</button>";
         pendulums += "</div>";
         //pendulums += "<button id='coordinates"+i+"'>Coordinates</button>";
         //pendulums += "<button id='drawinfo"+i+"'>Drawing Information</button>";
         pendulums += "</div>";
 
         //Form to input info
-        pendulums += "<form id='form"+i+"'>"
-        pendulums += "<div>"
-        pendulums += "<label for='length"+i+"'>Length in m </label>"
+        pendulums += "<form class='mt-3' id='form"+i+"'>"
+        pendulums += "<div class='form-group'>"
+        pendulums += "<label for='length"+i+"'>Length</label>"
+        pendulums += "<input class='form-control' type='number' step=0.1 min=0.3 max=10 name='length"+i+"' id='length"+i+"'>"
+        pendulums += "<small class='form-text text-muted'>in m </small>"
         pendulums += "</div>"
-        pendulums += "<div>"
-        pendulums += "<input type='number' step=0.1 min=0.3 max=10 name='length"+i+"' id='length"+i+"'>"
+        pendulums += "<div class='form-group'>"
+        pendulums += "<label for='initangle"+i+"'>Initial Angle</label>"
+        pendulums += "<input class='form-control' type='number' step=0.1 min=-90 max=90 name='initangle"+i+"' id='initangle"+i+"'>"
+        pendulums += "<small class='form-text text-muted'>in degrees </small>"
         pendulums += "</div>"
-        pendulums += "<div>"
-        pendulums += "<label for='initangle"+i+"'>Initial Angle in degrees</label>"
+        pendulums += "<div class='form-group'>"
+        pendulums += "<label for='mass"+i+"'>Mass</label>"
+        pendulums += "<input class='form-control' type='number' step=0.1 min=0.1 max=25 name='mass"+i+"' id='mass"+i+"'>"
+        pendulums += "<small class='form-text text-muted'>in kg </small>"
         pendulums += "</div>"
-        pendulums += "<div>"
-        pendulums += "<input type='number' step=0.1 min=-90 max=90 name='initangle"+i+"' id='initangle"+i+"'>"
-        pendulums += "</div>"
-        pendulums += "<div>"
-        pendulums += "<label for='mass"+i+"'>Mass in kg</label>"
-        pendulums += "</div>"
-        pendulums += "<div>"
-        pendulums += "<input type='number' step=0.1 min=0.1 max=25 name='mass"+i+"' id='mass"+i+"'>"
-        pendulums += "</div>"
-        pendulums += "<div>"
+        pendulums += "<div class='form-group'>"
         pendulums += "<label for='proportionalityConstant"+i+"'>Proportionality Constant</label>"
+        pendulums += "<input class='form-control' type='number' step=0.1 min=0.1 max=50 name='proportionalityConstant"+i+"' id='proportionalityConstant"+i+"'>"
         pendulums += "</div>"
         pendulums += "<div>"
-        pendulums += "<input type='number' step=0.1 min=0.1 max=50 name='proportionalityConstant"+i+"' id='proportionalityConstant"+i+"'>"
-        pendulums += "</div>"
-        pendulums += "<div>"
-        pendulums += "<input type='submit' value='Set'>"
+        pendulums += "<input class='mt-3' type='submit' value='Set'>"
         pendulums += "</div>"
         pendulums += "</form>"
         pendulums += "</div>";
