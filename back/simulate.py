@@ -30,7 +30,7 @@ def damped_angular_displacement(initial_angle, length, time, mass, proportionali
 def coordinates(angle, length):
     rad = to_radians(angle)
     x = length * math.sin(rad)
-    y = length * math.cos(rad)
+    y = length - length * math.cos(rad)
     return x,y
 
 damped = False
