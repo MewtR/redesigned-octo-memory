@@ -10,7 +10,7 @@ def to_degress(angle):
 
 def angular_displacement(initial_angle, length, time):
     g = 9.8
-    rad = to_degress(initial_angle)
+    rad = to_radians(initial_angle)
     angular_frequency = math.sqrt(g/length)
     return to_degress( rad * math.cos(angular_frequency*(time)))
 def coordinates(angle, length):
