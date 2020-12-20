@@ -132,6 +132,10 @@ module.exports = {
                     if (err) throw err;
                     let newFile = data.replace('initial_angle =', 'initial_angle = '+this.initialAngle);
                     newFile = newFile.replace('length =', 'length = '+this.length);
+                    if (this.proportionalityConstant)
+                        newFile = newFile.replace('proportionality_constant = False', 'proportionality_constant = '+this.proportionalityConstant);
+                    if (this.mass)
+                        newFile = newFile.replace('mass = False', 'mass = '+this.mass);
                     fs.writeFile('./pendulum'+pendulumNumber+'.py', newFile, (err)=>{
                         if (err) throw err;
                     })
