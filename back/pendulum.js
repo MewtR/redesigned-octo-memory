@@ -110,7 +110,7 @@ module.exports = {
             return equal;
         },
         checkIfSafeToStart(){
-            if (this.length === 0) return false;
+            if (!this.length) return false;
             if (this.initialAngle == null) return false;
             //If you have proportionalityConstant, you must have mass
             if ((this.proportionalityConstant == null && this.mass != null) || (this.proportionalityConstant  != null && this.mass == null)) return false;
@@ -126,7 +126,8 @@ module.exports = {
             })
         },
         generatePythonSimulation(){
-            if (this.checkIfSafeToStart())
+            const generate = this.checkIfSafeToStart;
+            if (generate)
             {
                 fs.readFile('./back/simulate.py', 'utf-8',(err, data) =>{
                     if (err) throw err;
@@ -139,9 +140,9 @@ module.exports = {
                     fs.writeFile('./pendulum'+pendulumNumber+'.py', newFile, (err)=>{
                         if (err) throw err;
                     })
-
                 })
-            }else return false;
+            }
+            return generate;
         }
     })
 }

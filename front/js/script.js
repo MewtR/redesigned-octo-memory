@@ -4,7 +4,7 @@ let pendulums = "";
     //Generate pendulum canvases
     for (let i = 1; i < 6; i ++){
         pendulums += "<div class='d-flex flex-column'>";
-        pendulums += "<canvas id='pendulum"+i+"' class='mt-3 border-top border-dark' width='300' height='300'></canvas>";
+        pendulums += "<canvas id='pendulum"+i+"' class='mt-3 border-top border-dark' width='400' height='300'></canvas>";
         pendulums += "<div class='d-flex flex-column'>";
         pendulums += "<div class='d-flex flex-row flex-wrap'>";
         //pendulums += "<button id='start"+i+"'>Start</button>";
@@ -12,6 +12,7 @@ let pendulums = "";
         //pendulums += "<button id='time"+i+"'>Time</button>";
         //pendulums += "<button id='angle"+i+"'>Angle</button>";
         pendulums += "<button id='simulate"+i+"'>Simulate</button>";
+        pendulums += "<button id='python"+i+"'>Generate Python</button>";
         pendulums += "</div>";
         //pendulums += "<button id='coordinates"+i+"'>Coordinates</button>";
         //pendulums += "<button id='drawinfo"+i+"'>Drawing Information</button>";
@@ -65,6 +66,7 @@ $( "#pendulums" ).html(pendulums);
             set(i);
             event.preventDefault();
         });
+        $( "#python"+i ).click(() => { python(i); });
     }
 
 
@@ -128,5 +130,10 @@ $.get(getNodeUrl(i)+'/drawinfo', (data) => {
     console.log("x is: ",data.x);
     console.log("y is: ",data.y);
     draw(i, data.length, data.x, data.y);
+})
+}
+function python(i){
+$.get(getNodeUrl(i)+'/python', (data) => {
+    console.log("Python script generation successful");
 })
 }
