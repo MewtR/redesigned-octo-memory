@@ -7,14 +7,14 @@ let pendulums = "";
         pendulums += "<canvas id='pendulum"+i+"' class='mt-3 border-top border-dark' width='300' height='300'></canvas>";
         pendulums += "<div class='d-flex flex-column'>";
         pendulums += "<div class='d-flex flex-row flex-wrap'>";
-        pendulums += "<button id='start"+i+"'>Start</button>";
+        //pendulums += "<button id='start"+i+"'>Start</button>";
         pendulums += "<button id='stop"+i+"'>Stop</button>";
-        pendulums += "<button id='time"+i+"'>Time</button>";
-        pendulums += "<button id='angle"+i+"'>Angle</button>";
-        pendulums += "</div>";
-        pendulums += "<button id='coordinates"+i+"'>Coordinates</button>";
-        pendulums += "<button id='drawinfo"+i+"'>Drawing Information</button>";
+        //pendulums += "<button id='time"+i+"'>Time</button>";
+        //pendulums += "<button id='angle"+i+"'>Angle</button>";
         pendulums += "<button id='simulate"+i+"'>Simulate</button>";
+        pendulums += "</div>";
+        //pendulums += "<button id='coordinates"+i+"'>Coordinates</button>";
+        //pendulums += "<button id='drawinfo"+i+"'>Drawing Information</button>";
         pendulums += "</div>";
 
         //Form to input info
@@ -54,12 +54,12 @@ $( "#pendulums" ).html(pendulums);
 
     //Event listeners
     for (let i = 1; i < 6; i ++){
-        $( "#start"+i ).click(() => { start(i); });
+        //$( "#start"+i ).click(() => { start(i); });
         $( "#stop"+i ).click(() => { stop(i); });
-        $( "#time"+i ).click(() => { time(i); });
-        $( "#angle"+i ).click(() => { angle(i); });
-        $( "#coordinates"+i ).click(() => { coordinates(i); });
-        $( "#drawinfo"+i ).click(() => { drawinfo(i); });
+        //$( "#time"+i ).click(() => { time(i); });
+        //$( "#angle"+i ).click(() => { angle(i); });
+        //$( "#coordinates"+i ).click(() => { coordinates(i); });
+        //$( "#drawinfo"+i ).click(() => { drawinfo(i); });
         $( "#simulate"+i ).click(() => { simulate(i); });
         $( "#form"+i ).submit((event) => {
             set(i);
