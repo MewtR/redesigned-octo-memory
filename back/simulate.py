@@ -1,8 +1,8 @@
 import math
 import time
 
-initial_angle = 45
-length = 5
+initial_angle = 
+length = 
 def to_radians(angle):
     return angle * (math.pi/180)
 def to_degress(angle):

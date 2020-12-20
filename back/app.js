@@ -59,6 +59,12 @@ const requestListener = function(req, res, pendulum){
     }else if( url == '/neighbours'){
         const neighbouringPendulums = pendulum.getNeighbouringPendulums();
         sendResponse(res, 200, 'application/json',JSON.stringify(neighbouringPendulums, replacer));
+    }else if( url == '/python'){
+        if(pendulum.generatePythonSimulation())
+            sendResponse(res, 200, 'text/plain', 'Python simulation successfully generated');
+        else
+            sendResponse(res, 400, 'text/plain', 'Please specify at least a length and an initial angle');
+
     }else if( method === 'GET' && url === '/'){
         sendResponse(res, 200, 'application/json',JSON.stringify(pendulum,replacer));
     }else{

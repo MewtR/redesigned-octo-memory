@@ -1,6 +1,7 @@
 const Timer = require('./timer');
 const helpers = require('./helpers');
 const http = require('http');
+const fs = require('fs');
 module.exports = {
     createPendulum: (pendulumNumber, numberOfPendulums = 5, initialAngle, length, mass, proportionalityConstant, timer = Timer.createTimer(), neighbouringPendulums = []) => ({
         pendulumNumber,
@@ -123,6 +124,20 @@ module.exports = {
                 mass: this.mass,
                 proportionalityConstant: this.proportionalityConstant
             })
+        },
+        generatePythonSimulation(){
+            if (this.checkIfSafeToStart())
+            {
+                fs.readFile('./back/simulate.py', 'utf-8',(err, data) =>{
+                    if (err) throw err;
+                    let newFile = data.replace('initial_angle =', 'initial_angle = '+this.initialAngle);
+                    newFile = newFile.replace('length =', 'length = '+this.length);
+                    fs.writeFile('./pendulum'+pendulumNumber+'.py', newFile, (err)=>{
+                        if (err) throw err;
+                    })
+
+                })
+            }else return false;
         }
     })
 }
