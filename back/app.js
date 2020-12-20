@@ -76,7 +76,11 @@ http.createServer((req,res) =>{
         }
         fs.writeFile('config.json', JSON.stringify(config),  (err) =>{
             if  (err) throw err;
-            sendResponse(res, 200, 'text/plain', 'Data written to file');
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/octect-stream');
+            res.setHeader('Content-Disposition', 'attachement; filename="config.json"');
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            fs.createReadStream('./config.json').pipe(res);
         });
     }
 }).listen(port, hostname, () =>{
