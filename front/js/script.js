@@ -86,6 +86,8 @@ function set(i){
     }
     $.post(getNodeUrl(i)+"/set", JSON.stringify(body), (data) =>{
         draw(i, data.length, data.x, data.y);
+    }).fail((err) =>{
+        alert(err.responseText);
     });
 }
 // Start pendulum
@@ -93,9 +95,9 @@ function start(i, callback){
   $.get(getNodeUrl(i)+'/start', (data) => {
       console.log("Response: "+data);
       callback(i);
-  }).fail((data) =>{
-      console.log("What happened?: ", data);
-      return data.status;
+  }).fail((err) =>{
+      console.log("Full error ", data);
+      alert(err.responseText);
   })
 }
 // Stop pendulum
@@ -136,5 +138,7 @@ $.get(getNodeUrl(i)+'/drawinfo', (data) => {
 function python(i){
 $.get(getNodeUrl(i)+'/python', (data) => {
     console.log("Python script generation successful");
+}).fail((err) =>{
+    alert(err.responseText);
 })
 }

@@ -126,7 +126,7 @@ module.exports = {
             })
         },
         generatePythonSimulation(){
-            const generate = this.checkIfSafeToStart;
+            const generate = this.checkIfSafeToStart();
             if (generate)
             {
                 fs.readFile('./back/simulate.py', 'utf-8',(err, data) =>{
