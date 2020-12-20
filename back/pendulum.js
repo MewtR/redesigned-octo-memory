@@ -2,10 +2,12 @@ const Timer = require('./timer');
 const helpers = require('./helpers');
 const http = require('http');
 module.exports = {
-    createPendulum: (pendulumNumber, numberOfPendulums = 5, initialAngle, length, timer = Timer.createTimer(), neighbouringPendulums = []) => ({
+    createPendulum: (pendulumNumber, numberOfPendulums = 5, initialAngle, length, mass, wind, timer = Timer.createTimer(), neighbouringPendulums = []) => ({
         pendulumNumber,
         initialAngle,
         length,
+        mass,
+        wind,
         timer,
         numberOfPendulums,
         neighbouringPendulums,
@@ -50,12 +52,24 @@ module.exports = {
         setInitialAngle(initialAngle){
             this.initialAngle = initialAngle;
         },
+        setWind(wind){
+            this.wind = wind;
+        },
+        setMass(mass){
+            this.mass = mass;
+        },
         set(attributes){
             if (attributes['length']) {
                 this.setLength(attributes.length);
             }
             if (attributes['initialAngle']){ 
                 this.setInitialAngle(attributes.initialAngle);
+            }
+            if (attributes['wind']){ 
+                this.setWind(attributes.wind);
+            }
+            if (attributes['mass']){ 
+                this.setMass(attributes.mass);
             }
             this.reset();
             const coordinates = this.getCoordinates();
@@ -95,6 +109,8 @@ module.exports = {
         checkIfSafeToStart(){
             if (this.length === 0) return false;
             if (this.initialAngle == null) return false;
+            //If you have wind, you must have mass
+            if ((this.wind == null && this.mass != null) || (this.wind  != null && this.mass == null)) return false;
             return true;
         }
     })
