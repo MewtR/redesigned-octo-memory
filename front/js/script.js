@@ -91,7 +91,7 @@ function start(i, callback){
       console.log("Response: "+data);
       callback(i);
   }).fail((err) =>{
-      console.log("Full error ", data);
+      console.log("Full error ", err);
       alert(err.responseText);
   })
 }
