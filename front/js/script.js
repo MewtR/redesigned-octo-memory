@@ -132,7 +132,7 @@ $.get(getNodeUrl(i)+'/drawinfo', (data) => {
 }
 function python(i){
 $.get(getNodeUrl(i)+'/python', (data) => {
-    console.log("Python script generation successful");
+    alert("Python script generation successful\nThe file is located at ./pendulum"+i+".py ");
 }).fail((err) =>{
     alert(err.responseText);
 })
