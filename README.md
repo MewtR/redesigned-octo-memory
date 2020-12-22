@@ -7,7 +7,7 @@ Simple program that can simulate several pendulums.
 - Another process runs on localhost port 3000 whose purpose is to export the configuration of all the pendulums.
 
 #### Running It
-- clone this repo and `cd` into it.
+- clone this repo and `cd` into it. Alternatively you can download it as a zip, extract it and `cd` into it.
 - `node back/app.js` to run the backend.
 - open `front/pendulums.html` in a browser to get the frontend.
 
